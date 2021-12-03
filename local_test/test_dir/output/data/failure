@@ -1,0 +1,9 @@
+Exception during training: Command '['/usr/bin/python', 'imdb.py', '--model-dir', '/opt/ml/model', '--output-data-dir', '/opt/ml/output/data', '--gpus', '1', '--epochs', '1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/opt/program/train", line 92, in <module>
+    _run(train_cmd)
+  File "/opt/program/train", line 48, in _run
+    subprocess.check_call(cmd, stdout=sys.stdout, stderr=sys.stderr)
+  File "/usr/lib/python3.9/subprocess.py", line 373, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/usr/bin/python', 'imdb.py', '--model-dir', '/opt/ml/model', '--output-data-dir', '/opt/ml/output/data', '--gpus', '1', '--epochs', '1']' returned non-zero exit status 1.
