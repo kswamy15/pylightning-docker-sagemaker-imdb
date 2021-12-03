@@ -140,6 +140,7 @@ cython_debug/
 .vscode
 dataset
 code/out
+model.pth
 
 .ipynb_checkpoints
 lightning_logs
