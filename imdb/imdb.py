@@ -21,10 +21,13 @@ if __name__ =='__main__':
     parser = argparse.ArgumentParser()
 
     # hyperparameters sent by the client are passed as command-line arguments to the script.
-    parser.add_argument('--epochs', type=int, default=2)
-    parser.add_argument('--max_epochs', type=int, default=2)
-    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--epochs', type=int, default=1)
+    parser.add_argument('--max-epochs', type=int, default=2)
+    parser.add_argument('--batch-size', type=int, default=16)
     parser.add_argument('--gpus', type=int, default=0) # used to support multi-GPU or CPU training
+    parser.add_argument('--limit_train_batches', type=float, default=0.1) # restrict the amount of training batches for sagemaker testing
+    parser.add_argument('--limit_test_batches', type=float, default=0.1) # restrict the amount of test batches for sagemaker testing
+    parser.add_argument('--default-root-dir', type=str, default=os.environ.get('SM_OUTPUT_DATA_DIR') )# change the default root dir
 
     # Data, model, and output directories. Passed by sagemaker with default to os env variables
     parser.add_argument('-o','--output-data-dir', type=str, default=os.environ.get('SM_OUTPUT_DATA_DIR'))
@@ -85,14 +88,14 @@ if __name__ =='__main__':
     )    
 
     seed_everything(42, workers=True)
-    imdb_dm = ImdbDataModule()
+    imdb_dm = ImdbDataModule(**vars(args))
 
     # ------------------------
     # 4 START TRAINING
     # ------------------------
     trainer.fit(model,imdb_dm)
     #trainer.validate()
-    trainer.test()
+    trainer.test(ckpt_path='best',datamodule=imdb_dm)
 
 
     # After model has been trained, save its state into model_dir which is then copied to back S3

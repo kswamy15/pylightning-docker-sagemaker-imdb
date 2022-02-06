@@ -156,11 +156,8 @@ class ImdbDataset(Dataset):
 
 ## Define IMDB DataModule class
 class ImdbDataModule(pl.LightningDataModule):
-    def __init__(self, batch_size: int = 16, num_workers: int = 2):
+    def __init__(self, batch_size: int = 16, num_workers: int = 4, **kwargs):
         super().__init__()
-          
-        # Directory to store MNIST Data
-        self.download_dir = ''
           
         # Defining batch size of our data
         self.batch_size = batch_size
