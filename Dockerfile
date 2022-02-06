@@ -2,7 +2,7 @@
 # This is a Python 3 image that uses the nginx, gunicorn, flask stack
 # for serving inferences in a stable way.
 
-FROM pytorchlightning/pytorch_lightning:latest
+#FROM pytorchlightning/pytorch_lightning:latest
 FROM nvcr.io/nvidia/pytorch:21.07-py3
 
 MAINTAINER kswamy15
